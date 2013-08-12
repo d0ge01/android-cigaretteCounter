@@ -65,10 +65,10 @@ public class MainActivity extends Activity {
         n = (int) Integer.parseInt(textData);
         if ( n == 0 )
         {
-        	tv.setText("Complimenti per ora non hai ancora fumato oggi");
+        	tv.setText(R.string.frase03);
         }
         else {
-        	tv.setText("Oggi hai fumato: " + Integer.toString(n));
+        	tv.setText("oggi hai fumato " + Integer.toString(n) + " sigarette...");
         }
 	}
 	

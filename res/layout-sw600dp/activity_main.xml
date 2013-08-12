@@ -13,9 +13,9 @@
         android:id="@+id/textView1"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:textSize="20dp"
+        android:textSize="28dp"
         android:text="" />
-	
+
     <Button
         android:id="@+id/button1"
         android:layout_width="match_parent"
