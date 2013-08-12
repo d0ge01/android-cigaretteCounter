@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">cigaretteCounter</string>
+    <string name="action_settings">Settings</string>
+    <string name="frase01">Oggi hai fumato</string>
+    <string name="frase02">Ho appena fumato una sigaretta</string>
+
+</resources>
