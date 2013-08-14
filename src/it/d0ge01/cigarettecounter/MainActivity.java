@@ -27,8 +27,8 @@ public class MainActivity extends Activity implements OnInitListener {
 	private Button button3;
 	private TextView tv;
 	private TextToSpeech tts;
-	
-	private Boolean speakable = false;
+	Resources res;
+	// private Boolean speakable = false;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -42,13 +42,18 @@ public class MainActivity extends Activity implements OnInitListener {
 		tv = (TextView) findViewById(R.id.textView1);
 		
 		tts = new TextToSpeech(this, this);
+		res = getResources();
 		
 		button1.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				n += 1;
+				if ( n < 100 )
+				{
+					n += 1;
+				}
+				Toast.makeText(getApplicationContext(), "Hai fumato un altra sigaretta" , Toast.LENGTH_SHORT).show();
 				savePreferencesData();
 			}
 		});
@@ -68,7 +73,7 @@ public class MainActivity extends Activity implements OnInitListener {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				speak("Oggi hai fumato " + n + " sigarette", 1.0);
+				speak((res.getString(R.string.frase02).replace("N", Integer.toString(n))), 1.0);
 			}
 		});
 		/*
@@ -96,7 +101,6 @@ public class MainActivity extends Activity implements OnInitListener {
         	tv.setText(R.string.frase03);
         }
         else {
-        	Resources res = getResources();
         	tv.setText((res.getString(R.string.frase02).replace("N", Integer.toString(n))));
         }
 	}
@@ -111,9 +115,7 @@ public class MainActivity extends Activity implements OnInitListener {
 	}
 	
 	public void onInit(int status) {
-		Context context = getApplicationContext();
 		CharSequence text = "";
-		int duration = Toast.LENGTH_SHORT;
 		
 		if(status == TextToSpeech.SUCCESS){
 			int result = tts.setLanguage(Locale.ITALIAN);
@@ -122,12 +124,12 @@ public class MainActivity extends Activity implements OnInitListener {
 					text = "Mancano i dati vocali";
 				}else{
 					text = "Inizializzazione avvenuta con successo..";
-					speakable = true;
+					// speakable = true;
 				}
 			}else{
 				text = "Text To speech non supportato...";
 			}
-			Toast.makeText(context, text, duration).show();
+			Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
 	}
 	
 	public void speak(String text, double speechSpeed){

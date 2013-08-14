@@ -7,5 +7,6 @@
     <string name="frase03">Oggi non hai ancora fumato</string>
     <string name="resetButton">Reset...</string>
     <string name="readButton">Leggi...</string>
+    <string name="frase04">Ho appena fumato una sigaretta</string>
 
 </resources>
