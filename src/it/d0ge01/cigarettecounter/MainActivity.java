@@ -5,6 +5,7 @@ import java.util.Locale;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.TextToSpeech.OnInitListener;
@@ -18,7 +19,6 @@ public class MainActivity extends Activity implements OnInitListener {
 
 	private int n = 0;
 	
-	private final static String MY_PREFERENCES = "MyPref";
 	private final static String TEXT_DATA_KEY = "textData";
 	static final String KEY = TextToSpeech.Engine.KEY_PARAM_STREAM;
 	
@@ -96,7 +96,8 @@ public class MainActivity extends Activity implements OnInitListener {
         	tv.setText(R.string.frase03);
         }
         else {
-        	tv.setText("oggi hai fumato " + Integer.toString(n) + " sigarette...");
+        	Resources res = getResources();
+        	tv.setText((res.getString(R.string.frase02).replace("N", Integer.toString(n))));
         }
 	}
 	
@@ -105,6 +106,7 @@ public class MainActivity extends Activity implements OnInitListener {
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString(TEXT_DATA_KEY, String.valueOf(n));
         editor.commit();
+        
         updatePreferencesData();
 	}
 	

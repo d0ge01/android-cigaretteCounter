@@ -3,7 +3,9 @@
 
     <string name="app_name">Contatore Sigarette</string>
     <string name="action_settings">Settings</string>
-    <string name="frase02">Ho appena fumato una sigaretta</string>
+    <string name="frase02">Ho appena fumato N sigarette</string>
     <string name="frase03">Oggi non hai ancora fumato</string>
+    <string name="resetButton">Reset...</string>
+    <string name="readButton">Leggi...</string>
 
 </resources>
