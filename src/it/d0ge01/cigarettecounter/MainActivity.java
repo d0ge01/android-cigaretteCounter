@@ -1,34 +1,32 @@
 package it.d0ge01.cigarettecounter;
 
-import java.util.Locale;
+import java.util.Calendar;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.speech.tts.TextToSpeech;
-import android.speech.tts.TextToSpeech.OnInitListener;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends Activity implements OnInitListener {
+public class MainActivity extends Activity  {
 
 	private int n = 0;
 	
 	private final static String TEXT_DATA_KEY = "textData";
-	static final String KEY = TextToSpeech.Engine.KEY_PARAM_STREAM;
+	private final static String INT_DATA_KEY = "dayData";
+	private Calendar calendar;
+	private Resources res;
+	private static int day;
 	
 	private Button button1;
 	private Button button2;
-	private Button button3;
 	private TextView tv;
-	private TextToSpeech tts;
-	Resources res;
-	// private Boolean speakable = false;
+	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -37,23 +35,29 @@ public class MainActivity extends Activity implements OnInitListener {
 		
 		button1 = (Button) findViewById(R.id.button1);
 		button2 = (Button) findViewById(R.id.button2);
-		button3 = (Button) findViewById(R.id.button3);
 		
 		tv = (TextView) findViewById(R.id.textView1);
 		
-		tts = new TextToSpeech(this, this);
 		res = getResources();
+		
+		calendar = Calendar.getInstance();
+		day = Calendar.DAY_OF_YEAR;
+		if ( readDay() != day ) {
+			n = 0;
+			savePreferencesData();
+		}
 		
 		button1.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				if ( n < 100 )
-				{
+				if ( ( n >= 0 ) && ( n < 1000 ) ) {
 					n += 1;
+				} else {
+					n = 0;
 				}
-				Toast.makeText(getApplicationContext(), "Hai fumato un altra sigaretta" , Toast.LENGTH_SHORT).show();
+				Toast.makeText(getApplicationContext(), R.string.frase05 , Toast.LENGTH_SHORT).show();
 				savePreferencesData();
 			}
 		});
@@ -63,23 +67,11 @@ public class MainActivity extends Activity implements OnInitListener {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				n = 0;
+				if ( n > 1 )
+					n -= 1;
 				savePreferencesData();
 			}
 		});
-		
-		button3.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				speak((res.getString(R.string.frase02).replace("N", Integer.toString(n))), 1.0);
-			}
-		});
-		/*
-		if ( !speakable ) {
-			button3.setClickable(false);
-		}*/
 		
 		updatePreferencesData();
 	}
@@ -110,30 +102,14 @@ public class MainActivity extends Activity implements OnInitListener {
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString(TEXT_DATA_KEY, String.valueOf(n));
         editor.commit();
-        
+        editor.putInt(INT_DATA_KEY, day);
+        editor.commit();
         updatePreferencesData();
 	}
 	
-	public void onInit(int status) {
-		CharSequence text = "";
-		
-		if(status == TextToSpeech.SUCCESS){
-			int result = tts.setLanguage(Locale.ITALIAN);
-			if(result == TextToSpeech.LANG_MISSING_DATA || 
-					result == TextToSpeech.LANG_NOT_SUPPORTED){
-					text = "Mancano i dati vocali";
-				}else{
-					text = "Inizializzazione avvenuta con successo..";
-					// speakable = true;
-				}
-			}else{
-				text = "Text To speech non supportato...";
-			}
-			Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
-	}
-	
-	public void speak(String text, double speechSpeed){
-		tts.setSpeechRate((float)speechSpeed);
-		tts.speak(text, TextToSpeech.QUEUE_FLUSH, null);
+	private int readDay() {
+		SharedPreferences prefs = getSharedPreferences("PREF_NAME", Context.MODE_MULTI_PROCESS);
+        int ret = prefs.getInt(INT_DATA_KEY, 0);
+        return ret;
 	}
 }
