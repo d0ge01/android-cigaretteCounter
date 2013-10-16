@@ -41,7 +41,8 @@ public class MainActivity extends Activity  {
 		res = getResources();
 		
 		calendar = Calendar.getInstance();
-		day = Calendar.DAY_OF_YEAR;
+		day = calendar.get(Calendar.DAY_OF_YEAR);
+		
 		if ( readDay() != day ) {
 			n = 0;
 			savePreferencesData();
@@ -67,7 +68,7 @@ public class MainActivity extends Activity  {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				if ( n > 1 )
+				if ( n >= 1 )
 					n -= 1;
 				savePreferencesData();
 			}
