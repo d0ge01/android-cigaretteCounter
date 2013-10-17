@@ -22,13 +22,13 @@ public class MainActivity extends Activity  {
 	private final static String TEXT_DATA_KEY = "textData";
 	private final static String INT_DATA_KEY = "dayData";
 
+	
 	private Calendar calendar;
 	private Resources res;
 	private static int day;
 	
 	private Button button1;
 	private Button button2;
-	private Button button3;
 	
 	private MainActivity activity = this;
 	private TextView tv;
@@ -41,7 +41,6 @@ public class MainActivity extends Activity  {
 		
 		button1 = (Button) findViewById(R.id.button1);
 		button2 = (Button) findViewById(R.id.button2);
-		button3 = (Button) findViewById(R.id.button3);
 		
 		tv = (TextView) findViewById(R.id.textView1);
 		
@@ -78,15 +77,6 @@ public class MainActivity extends Activity  {
 				if ( n >= 1 )
 					n -= 1;
 				savePreferencesData();
-			}
-		});
-		
-		button3.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				createDialogReset();
 			}
 		});
 		updatePreferencesData();
