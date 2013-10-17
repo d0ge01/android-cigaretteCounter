@@ -8,23 +8,29 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import it.d0ge01.cigarettecounter.*;
 
 public class MainActivity extends Activity  {
 
-	private int n = 0;
+	public int n = 0;
 	
 	private final static String TEXT_DATA_KEY = "textData";
 	private final static String INT_DATA_KEY = "dayData";
+
 	private Calendar calendar;
 	private Resources res;
 	private static int day;
 	
 	private Button button1;
 	private Button button2;
+	private Button button3;
+	
+	private MainActivity activity = this;
 	private TextView tv;
 	
 	
@@ -35,6 +41,7 @@ public class MainActivity extends Activity  {
 		
 		button1 = (Button) findViewById(R.id.button1);
 		button2 = (Button) findViewById(R.id.button2);
+		button3 = (Button) findViewById(R.id.button3);
 		
 		tv = (TextView) findViewById(R.id.textView1);
 		
@@ -74,6 +81,14 @@ public class MainActivity extends Activity  {
 			}
 		});
 		
+		button3.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				createDialogReset();
+			}
+		});
 		updatePreferencesData();
 	}
 
@@ -84,6 +99,22 @@ public class MainActivity extends Activity  {
 		return true;
 	}
 	
+	private void createDialogReset() {
+		Dialogo ob = new Dialogo();
+		ob.setOb(activity);
+		ob.show(getFragmentManager(), UI_MODE_SERVICE);
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch ( item.getItemId() ) {
+		case R.id.action_settings:
+			createDialogReset();
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+	}
 	private void updatePreferencesData(){
         SharedPreferences prefs = getSharedPreferences("PREF_NAME", Context.MODE_MULTI_PROCESS);
         String textData = prefs.getString(TEXT_DATA_KEY, "0");
@@ -112,5 +143,10 @@ public class MainActivity extends Activity  {
 		SharedPreferences prefs = getSharedPreferences("PREF_NAME", Context.MODE_MULTI_PROCESS);
         int ret = prefs.getInt(INT_DATA_KEY, 0);
         return ret;
+	}
+	
+	public void setZero() {
+		n = 0;
+		savePreferencesData();
 	}
 }
