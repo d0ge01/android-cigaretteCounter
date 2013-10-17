@@ -1,5 +1,7 @@
 package it.d0ge01.cigarettecounter;
 
+// 0.2a
+
 import java.util.Calendar;
 
 import android.app.Activity;
