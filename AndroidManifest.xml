@@ -24,7 +24,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="it.d0ge01.cigarettecounter.settings"
+            android:name="it.d0ge01.cigarettecounter.Settings"
             android:label="@string/action_settings" >
         </activity>
     </application>

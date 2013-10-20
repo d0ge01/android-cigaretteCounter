@@ -1,11 +1,13 @@
 package it.d0ge01.cigarettecounter;
 
-// 0.2a
+// 0.3a
 
 import java.util.Calendar;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -15,11 +17,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-import it.d0ge01.cigarettecounter.*;
 
 public class MainActivity extends Activity  {
 
 	public int n = 0;
+	private boolean theme_sel = false;
+	
 	
 	private final static String TEXT_DATA_KEY = "textData";
 	private final static String INT_DATA_KEY = "dayData";
@@ -35,7 +38,7 @@ public class MainActivity extends Activity  {
 	private MainActivity activity = this;
 	private TextView tv;
 	
-	
+	@SuppressLint("NewApi")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -103,6 +106,13 @@ public class MainActivity extends Activity  {
 		case R.id.action_settings:
 			createDialogReset();
 			return true;
+		case R.id.item2:
+			Intent intent = new Intent(this, Settings.class);
+			this.startActivity(intent);
+			return true;
+		case R.id.item1:
+			this.setTema();
+			return true;
 		default:
 			return super.onOptionsItemSelected(item);
 		}
@@ -140,5 +150,16 @@ public class MainActivity extends Activity  {
 	public void setZero() {
 		n = 0;
 		savePreferencesData();
+	}
+	
+	public void setTema() {
+		if ( this.theme_sel ) {
+			setTheme(R.style.Dark);
+			this.theme_sel = true;
+		}
+		else {
+			setTheme(R.style.Light);
+			this.theme_sel = false;
+		}
 	}
 }

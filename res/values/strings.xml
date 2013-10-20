@@ -12,5 +12,7 @@
     <string name="impostazioni01">Tema Scuro</string>
     <string name="frase06">Azzera contatore...</string>
     <string name="secureReset">Sei sicuro che vuoi resettare?</string>
+    <string name="frase07">Crediti</string>
+    <string name="credits">Salvatore Criscione</string>
 
 </resources>

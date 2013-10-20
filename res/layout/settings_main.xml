@@ -5,10 +5,12 @@
     android:gravity="top"
     android:orientation="vertical" >
 
-    <RadioButton
-        android:id="@+id/radioButton1"
+    <TextView
+        android:id="@+id/textView1"
         android:layout_width="wrap_content"
+        android:textSize="25dp"
         android:layout_height="wrap_content"
-        android:text="@string/impostazioni01" />
+        android:text="@string/credits" />
+
 
 </LinearLayout>
