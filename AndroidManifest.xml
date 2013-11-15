@@ -27,6 +27,11 @@
             android:name="it.d0ge01.cigarettecounter.BodyActivity"
             android:label="@string/app_name" >
      	</activity>
+     	
+        <activity
+            android:name="it.d0ge01.cigarettecounter.Report"
+            android:label="@string/reportButton">
+        </activity>
     </application>
 
 </manifest>

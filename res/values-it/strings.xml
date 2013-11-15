@@ -3,10 +3,11 @@
     <string name="app_name">Contatore Sigarette</string>
     <string name="action_settings">Resetta</string>
     <string name="addCiga">Ho appena fumato una sigaretta</string>
-	<string name="report">Dettagli</string>
+	<string name="viewBt">Dettagli</string>
 	<string name="secureReset">Vuoi davvero resettare il contattore?</string>
 	<string name="yes">Si</string>
 	<string name="no">No</string>
 	<string name="gsmook">Buona fumata</string>
 	<string name="reportString">Hai fumato N sigarette</string>
+	<string name="reportButton">Resoconto</string>
 </resources>

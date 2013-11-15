@@ -17,7 +17,7 @@ import android.widget.Button;
 
 public class MenuFragment extends Fragment {
 	
-	   Button bt1, bt2;
+	   Button bt1, bt2, bt3;
 	   private int n = 0;
     
 	   // activity listener
@@ -88,6 +88,19 @@ public class MenuFragment extends Fragment {
 	            sendBodyTextToActivity(n);
 	         }
 	      });
+	      
+	      // get button BTN3
+	      bt3 = (Button)view.findViewById(R.id.bt3);
+	      // Button listener
+	      bt3.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent(getActivity().getApplicationContext(),BodyActivity.class);
+				startActivity(intent);
+			}
+		});
 	      return view;
 	   }
 	   
