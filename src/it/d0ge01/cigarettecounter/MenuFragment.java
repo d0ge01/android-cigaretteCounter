@@ -17,21 +17,16 @@ import android.widget.Button;
 
 public class MenuFragment extends Fragment {
 	
-	Button bt1, bt2;
-	
-	private int n = 0;
-	
-	
-	private final static String TEXT_DATA_KEY = "textData";
-    private final static String INT_DATA_KEY = "dayData";
+	   Button bt1, bt2;
+	   private int n = 0;
     
-    private Calendar calendar;
-    private Resources res;
-    private static int day;
-    
-	// activity listener
+	   // activity listener
 	   private OnMenufragListener menufragListener;
 
+	   
+	   // interface for save data
+	   private PrefsMan man;
+	   
 	   // interface for communication with activity
 	   public interface OnMenufragListener {
 	      public void onMenufrag(int n);
@@ -66,17 +61,14 @@ public class MenuFragment extends Fragment {
 	   @Override
 	   public View onCreateView(LayoutInflater inflater,ViewGroup container,Bundle savedInstanceState) {
 	      View view = inflater.inflate(R.layout.fragment_menu,container,false);
+	      man = new PrefsMan(this.getActivity());
 	      
-	      res = getResources();
-          
-          calendar = Calendar.getInstance();
-          day = calendar.get(Calendar.DAY_OF_YEAR);
-          
-          if ( readDay() != day ) {
+	      n = man.getN();
+          if ( !man.checkDay()) {
         	  n = 0;
-        	  savePreferencesData();
+        	  man.savePreferencesData(n);
           }
-          
+                    
 	      // get button BTN1
 	      bt1 = (Button)view.findViewById(R.id.bt1);
 	      // button listener
@@ -96,7 +88,6 @@ public class MenuFragment extends Fragment {
 	            sendBodyTextToActivity(n);
 	         }
 	      });
-	      updatePreferencesData();
 	      return view;
 	   }
 	   
@@ -112,7 +103,7 @@ public class MenuFragment extends Fragment {
 	      BodyFragment fragment = (BodyFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.bodyFragment);
 	      
 	      n += 1;
-	      savePreferencesData();
+	      man.savePreferencesData(n);
 	      // if fragment is not null and in layout, set text, else launch BodyActivity
 	      if ((fragment!=null)&&fragment.isInLayout()) {
 	         fragment.setText(getString(R.string.gsmook));
@@ -125,31 +116,9 @@ public class MenuFragment extends Fragment {
 	      }
 	      
 	   }
-	   private void updatePreferencesData(){
-	        SharedPreferences prefs = this.getActivity().getSharedPreferences("PREF_NAME", Context.MODE_MULTI_PROCESS);
-	        String textData = prefs.getString(TEXT_DATA_KEY, "0");
-	        
-	        n = (int) Integer.parseInt(textData);
-		}
-		
-	   public void savePreferencesData() {
-	        SharedPreferences prefs = this.getActivity().getSharedPreferences("PREF_NAME", Context.MODE_MULTI_PROCESS);
-	        SharedPreferences.Editor editor = prefs.edit();
-	        editor.putString(TEXT_DATA_KEY, String.valueOf(n));
-	        editor.commit();
-	        editor.putInt(INT_DATA_KEY, day);
-	        editor.commit();
-	        updatePreferencesData();
-	  }
-	        
-	  private int readDay() {
-		  SharedPreferences prefs = this.getActivity().getSharedPreferences("PREF_NAME", Context.MODE_MULTI_PROCESS);
-	      int ret = prefs.getInt(INT_DATA_KEY, 0);
-	      return ret;
-	  }
 	        
 	  public void setZero() {
 		  n = 0;
-		  savePreferencesData();
+		  man.savePreferencesData(n);
 	  }
 	}
