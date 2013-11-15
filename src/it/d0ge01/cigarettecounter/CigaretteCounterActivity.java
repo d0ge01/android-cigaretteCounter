@@ -29,13 +29,13 @@ public class CigaretteCounterActivity extends FragmentActivity implements MenuFr
 	    
 	    // if fragment is not null and in layout, set text, else launch BodyActivity
 	    if ((fragment!=null)&&fragment.isInLayout()) {
-	    	if ( s.equals("Buona fumata :)")) {
+	    	if ( s.equals(getString(R.string.gsmook))) {
 	    		fragment.setText(s);
 	    		fragment.setImage(4);
 	    	}
 	    	else {
 		    	int n = Integer.valueOf(s);
-		    	fragment.setText("hai fumato " + n + "Sigarette :)");
+		    	fragment.setText(getString(R.string.reportString).replace("N", Integer.toString(n)));
 		    	if ( n >= 10 && n <= 20 )
 		    		fragment.setImage(2);
 		    	if ( n < 10 )
