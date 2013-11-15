@@ -66,10 +66,16 @@ public class MenuFragment extends Fragment {
 	   @Override
 	   public View onCreateView(LayoutInflater inflater,ViewGroup container,Bundle savedInstanceState) {
 	      View view = inflater.inflate(R.layout.fragment_menu,container,false);
+	      
 	      res = getResources();
           
           calendar = Calendar.getInstance();
           day = calendar.get(Calendar.DAY_OF_YEAR);
+          
+          if ( readDay() != day ) {
+        	  n = 0;
+        	  savePreferencesData();
+          }
           
 	      // get button BTN1
 	      bt1 = (Button)view.findViewById(R.id.bt1);
@@ -77,7 +83,6 @@ public class MenuFragment extends Fragment {
 	      bt1.setOnClickListener(new View.OnClickListener() {
 	         @Override
 	         public void onClick(View v) {
-	        	n++;
 	            justSmoked();
 	         }
 	      });
@@ -91,7 +96,7 @@ public class MenuFragment extends Fragment {
 	            sendBodyTextToActivity(n);
 	         }
 	      });
-	      
+	      updatePreferencesData();
 	      return view;
 	   }
 	   
@@ -106,20 +111,45 @@ public class MenuFragment extends Fragment {
 	      // get body fragment (native method is getFragmentManager)
 	      BodyFragment fragment = (BodyFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.bodyFragment);
 	      
+	      n += 1;
+	      savePreferencesData();
 	      // if fragment is not null and in layout, set text, else launch BodyActivity
 	      if ((fragment!=null)&&fragment.isInLayout()) {
-	         fragment.setText("Buona fumata :)");
+	         fragment.setText(getString(R.string.gsmook));
 	         fragment.setImage(4);
 	      } else {
 	         Intent intent = new Intent(getActivity().getApplicationContext(),BodyActivity.class);
-	         intent.putExtra("value","Buona fumata :)");
+	         intent.putExtra("value",getString(R.string.gsmook));
 	         intent.putExtra("image", "4");
 	         startActivity(intent);
 	      }
 	      
 	   }
-		
-		public void setZero() {
-			n = 0;
+	   private void updatePreferencesData(){
+	        SharedPreferences prefs = this.getActivity().getSharedPreferences("PREF_NAME", Context.MODE_MULTI_PROCESS);
+	        String textData = prefs.getString(TEXT_DATA_KEY, "0");
+	        
+	        n = (int) Integer.parseInt(textData);
 		}
+		
+	   public void savePreferencesData() {
+	        SharedPreferences prefs = this.getActivity().getSharedPreferences("PREF_NAME", Context.MODE_MULTI_PROCESS);
+	        SharedPreferences.Editor editor = prefs.edit();
+	        editor.putString(TEXT_DATA_KEY, String.valueOf(n));
+	        editor.commit();
+	        editor.putInt(INT_DATA_KEY, day);
+	        editor.commit();
+	        updatePreferencesData();
+	  }
+	        
+	  private int readDay() {
+		  SharedPreferences prefs = this.getActivity().getSharedPreferences("PREF_NAME", Context.MODE_MULTI_PROCESS);
+	      int ret = prefs.getInt(INT_DATA_KEY, 0);
+	      return ret;
+	  }
+	        
+	  public void setZero() {
+		  n = 0;
+		  savePreferencesData();
+	  }
 	}

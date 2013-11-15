@@ -8,7 +8,7 @@
         android:id="@+id/imageReport"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/life_good" />
+        android:src="@drawable/zero" />
 
     <TextView
        android:id="@+id/detailsText"

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
+import android.view.MenuItem;
 
 public class CigaretteCounterActivity extends FragmentActivity implements MenuFragment.OnMenufragListener {
 	
@@ -43,15 +44,15 @@ public class CigaretteCounterActivity extends FragmentActivity implements MenuFr
 		    		fragment.setImage(3);
 	    	}
 	    } else {
-	    	if ( s.equals("Buona fumata :)")) {
+	    	if ( s.equals(getString(R.string.gsmook))) {
 		        Intent intent = new Intent(this,BodyActivity.class);
 		        intent.putExtra("value",s); // Another way to cast to String
 		        intent.putExtra("image", "4");
 		        startActivity(intent);
 	    	} else {
 		        Intent intent = new Intent(this,BodyActivity.class);
-		        intent.putExtra("value","Hai fumato " + s + " Sigarette :)"); // Another way to cast to String
 		        int n = Integer.valueOf(s);
+		        intent.putExtra("value",getString(R.string.reportString).replace("N", Integer.toString(n))); 
 		    	if ( n >= 10 && n <= 20 )
 		    		intent.putExtra("image", "2");
 		    	if ( n < 10 )
@@ -68,4 +69,22 @@ public class CigaretteCounterActivity extends FragmentActivity implements MenuFr
 		// TODO Auto-generated method stub
 		
 	}
+	
+	@Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+            switch ( item.getItemId() ) {
+            case R.id.action_settings:
+                    createDialogReset();
+                    return true;
+            default:
+                    return super.onOptionsItemSelected(item);
+            }
+    }
+	
+	private void createDialogReset() {
+        Dialogo ob = new Dialogo();
+        MenuFragment fragment = (MenuFragment) getSupportFragmentManager().findFragmentById(R.id.menuFragment);
+        ob.setOb(fragment);
+        ob.show(getFragmentManager(), UI_MODE_SERVICE);
+}
 }

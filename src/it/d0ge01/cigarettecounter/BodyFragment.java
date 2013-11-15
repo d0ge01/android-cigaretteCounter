@@ -51,7 +51,7 @@ public class BodyFragment extends Fragment{
 		   case 3:
 			   view.setImageResource(R.drawable.life_bad);
 			   break;
-			default:
+		   default:
 				view.setImageResource(R.drawable.smok);;
 		   }
 	   }

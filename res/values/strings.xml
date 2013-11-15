@@ -2,7 +2,12 @@
 <resources>
 
     <string name="app_name">Cigarette Counter</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">Reset</string>
 	<string name="addCiga">I just smoked one cigarette</string>
 	<string name="report">Report</string>
+	<string name="secureReset">Do you want reset counter?</string>
+	<string name="yes">Yes</string>
+	<string name="no">Nope</string>
+	<string name="gsmook">Good Smooking</string>
+	<string name="reportString">You have smooked N cigarettes</string>
 </resources>
