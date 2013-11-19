@@ -2,6 +2,7 @@ package it.d0ge01.cigarettecounter;
 
 import java.util.Calendar;
 import java.util.LinkedList;
+import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
@@ -21,7 +22,7 @@ public class PrefsMan {
     
     private int n = 0;
     
-    LinkedList container = new LinkedList();
+    LinkedList<Object> container = new LinkedList<Object>();
     
 	public PrefsMan(Activity act) {
 		this.act = act;
@@ -35,7 +36,7 @@ public class PrefsMan {
 	}
 	
 	public boolean checkDay() {
-		if ( day == readDay()) {
+		if ( (day + year) == this.readLastDay()) {
 			return true;
 		} else {
 			return false;
@@ -53,17 +54,38 @@ public class PrefsMan {
 		this.n = n;
         SharedPreferences prefs = this.act.getSharedPreferences("PREF_NAME", Context.MODE_MULTI_PROCESS);
         SharedPreferences.Editor editor = prefs.edit();
-        editor.putString(TEXT_DATA_KEY, String.valueOf(n));
+        editor.putString(TEXT_DATA_KEY, this.genString());
         editor.commit();
-        editor.putInt(INT_DATA_KEY, day);
+        editor.putInt(INT_DATA_KEY, day+year);
         editor.commit();
         updatePreferencesData();
     }
 	
-	private int readDay() {
+	private String genString() {
+		List<String> buff = getAllDay();
+		String ret = "";
+		if ( checkDay() ) {
+			for ( int i = 0 ; i < (buff.size() > 1 ? buff.size() - 1 : 0); i++ )
+				ret += (String) buff.get(i);
+			ret += "|"+(this.day+this.year)+"-"+this.n;
+		} else {
+			for ( int i = 0; i < buff.size() ; i++ )
+				ret += (String) buff.get(i);
+			
+			ret += "|"+(this.day+this.year)+"-"+this.n;
+		}
+		return ret;
+	}
+	
+	private int readLastDay() {
 		  SharedPreferences prefs = this.act.getSharedPreferences("PREF_NAME", Context.MODE_MULTI_PROCESS);
 	      int ret = prefs.getInt(INT_DATA_KEY, 0);
 	      return ret;
+	}
+	
+	public List<String> getAllDay() {
+		
+		return null;
 	}
 	
 	public int getN() {

@@ -1,27 +1,22 @@
 package it.d0ge01.cigarettecounter;
 
-import java.util.Calendar;
-
 import android.app.Activity;
-import android.content.res.Resources;
 import android.os.Bundle;
-import android.widget.CalendarView;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 public class Report extends Activity{
 	
-	CalendarView cv1;
-	Calendar calendar;
-	Resources res;
+	Spinner sp;
+	TextView tv;
+	PrefsMan prefs;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.report);    
 		
-		// cv1 = (CalendarView) findViewById(R.id.calendarView1);
-		res = getResources();
-		calendar = Calendar.getInstance();
-		
-		// cv1.setDate(calendar.getTimeInMillis());
+		sp = (Spinner) findViewById(R.id.spinner);
+		tv = (TextView) findViewById(R.id.spinnerText);
 	}
 }
