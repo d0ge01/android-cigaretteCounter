@@ -1,27 +1,23 @@
 package it.d0ge01.cigarettecounter;
 
 import java.util.Calendar;
-import java.util.LinkedList;
-import java.util.List;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 
 public class PrefsMan {
 	Activity act;
 	
-	private final static String TEXT_DATA_KEY = "textData";
-    private final static String INT_DATA_KEY = "dayData";
+	private final static String DAY_KEY = "textData";
+    private final static String N_KEY = "dayData";
+    private final static String N_ELEMENT = "vectorData";
     
     private Calendar calendar;
     private static int day;
     private static int year;
     
     private int n = 0;
-    
-    LinkedList<Object> container = new LinkedList<Object>();
+    private int nVector = 0;
     
 	public PrefsMan(Activity act) {
 		this.act = act;
@@ -34,8 +30,12 @@ public class PrefsMan {
         updatePreferencesData();
 	}
 	
+	private int now() {
+		return day+year;
+	}
+	
 	public boolean checkDay() {
-		if ( (day + year) == this.readLastDay()) {
+		if ( now() == (this.readLastDay())) {
 			return true;
 		} else {
 			return false;
@@ -44,9 +44,13 @@ public class PrefsMan {
 	
 	public void updatePreferencesData(){
         SharedPreferences prefs = this.act.getSharedPreferences("PREF_NAME", Context.MODE_MULTI_PROCESS);
-        String textData = prefs.getString(TEXT_DATA_KEY, "0");
+        int nElementi = prefs.getInt(N_ELEMENT, 0);
+        nVector = nElementi;
         try {
-        	n = (int) Integer.parseInt(textData);
+        	if ( checkDay() )
+        		n = prefs.getInt(N_KEY + nElementi, 0);
+        	else
+        		n = 0;
         } catch ( Exception e ) {
         	n = 0;
         }
@@ -56,39 +60,26 @@ public class PrefsMan {
 		this.n = n;
         SharedPreferences prefs = this.act.getSharedPreferences("PREF_NAME", Context.MODE_MULTI_PROCESS);
         SharedPreferences.Editor editor = prefs.edit();
-        editor.putString(TEXT_DATA_KEY, this.genString());
-        editor.commit();
-        editor.putInt(INT_DATA_KEY, day+year);
-        editor.commit();
+        if ( checkDay() ) {
+	        editor.putInt(DAY_KEY + nVector, day+year);
+	        editor.putInt(N_KEY + nVector, n);
+	        editor.commit();
+        } else {
+        	editor.putInt(DAY_KEY + ( nVector + 1 ), now());
+        	editor.putInt(N_KEY+ ( nVector + 1), n);
+        	editor.putInt(N_ELEMENT, nVector + 1);
+        	editor.commit();
+        }
         updatePreferencesData();
     }
 	
-	private String genString() {
-		List<String> buff = getAllDay();
-		String ret = "";
-		if ( checkDay() ) {
-			for ( int i = 0 ; i < (buff.size() > 1 ? buff.size() - 1 : 0); i++ )
-				ret += (String) buff.get(i);
-			ret += "|"+(this.day+this.year)+"-"+this.n;
-		} else {
-			for ( int i = 0; i < buff.size() ; i++ )
-				ret += (String) buff.get(i);
-			
-			ret += "|"+(this.day+this.year)+"-"+this.n;
-		}
-		return ret;
-	}
-	
 	private int readLastDay() {
-		  SharedPreferences prefs = this.act.getSharedPreferences("PREF_NAME", Context.MODE_MULTI_PROCESS);
-	      int ret = prefs.getInt(INT_DATA_KEY, 0);
-	      return ret;
+		SharedPreferences prefs = this.act.getSharedPreferences("PREF_NAME", Context.MODE_MULTI_PROCESS);
+		int nElementi = prefs.getInt(N_ELEMENT, 0);
+		
+		return prefs.getInt(DAY_KEY+nElementi, now());
 	}
 	
-	public List<String> getAllDay() {
-		
-		return new LinkedList();
-	}
 	
 	public int getN() {
 		return this.n;
