@@ -17,23 +17,20 @@ public class CigaretteCounterActivity extends FragmentActivity implements MenuFr
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
+		
 		getMenuInflater().inflate(R.menu.cigarette_counter, menu);
 		return true;
 	}
-	// MenuFragment listener
+	
 	public void onMenufrag(String s) {
 	    
-		// get body fragment (native method is getFragmentManager)
 	    BodyFragment fragment = (BodyFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentbody);
-	    
-	    // if fragment is not null and in layout, set text, else launch BodyActivity
+
 	    if ((fragment!=null)&&fragment.isInLayout()) {
 	    	if ( s.equals(getString(R.string.gsmook))) {
 	    		fragment.setText(s);
 	    		fragment.setImage(4);
-	    	}
-	    	else {
+	    	} else {
 		    	int n = Integer.valueOf(s);
 		    	fragment.setText(getString(R.string.reportString).replace("N", Integer.toString(n)));
 		    	if ( n >= 10 && n <= 20 )

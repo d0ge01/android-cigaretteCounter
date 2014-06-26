@@ -2,11 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="it.d0ge01.cigarettecounter"
     android:versionCode="1"
-    android:versionName="1.0" >
+    android:versionName="0.8a" >
 
     <uses-sdk
         android:minSdkVersion="16"
-        android:targetSdkVersion="18" />
+        android:targetSdkVersion="19" />
 
     <application
         android:allowBackup="true"
@@ -32,6 +32,23 @@
             android:name="it.d0ge01.cigarettecounter.Report"
             android:label="@string/reportButton">
         </activity>
+        
+        <fragment
+            android:id="@+id/fragmentbody"
+            class="it.d0ge01.cigarettecounter.BodyFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+        
+        <fragment
+            android:id="@+id/fragmentmenu"
+            class="it.d0ge01.cigarettecounter.MenuFragment"
+            />
+        
+        <fragment
+            android:id="@+id/fragmentdialogo"
+            class="it.d0ge01.cigarettecounter.Dialogo"
+            />
     </application>
 
 </manifest>

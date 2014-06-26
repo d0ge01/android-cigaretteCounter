@@ -80,7 +80,8 @@ public class MenuFragment extends Fragment {
 	      bt2.setOnClickListener(new View.OnClickListener() {
 	         @Override
 	         public void onClick(View v) {
-	            sendBodyTextToActivity(n);
+	            //sendBodyTextToActivity(n);
+	        	 untilNowCiga();
 	         }
 	      });
 	      
@@ -99,32 +100,52 @@ public class MenuFragment extends Fragment {
 	      return view;
 	   }
 	   
-	   // (recommended) method to send command to activity
-	   private void sendBodyTextToActivity(int n) {
-	      menufragListener.onMenufrag(""+n);
-	   }
-	   
-	   // alternate (not recommended) method with direct access to fragment
-	   private void justSmoked() {
+	   private void untilNowCiga() {
 	      
-	      // get body fragment (native method is getFragmentManager)
 	      BodyFragment fragment = (BodyFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.bodyFragment);
 	      
-	      n += 1;
-	      man.savePreferencesData(n);
-	      // if fragment is not null and in layout, set text, else launch BodyActivity
+	      man.updatePreferencesData();
+	      
 	      if ((fragment!=null)&&fragment.isInLayout()) {
-	         fragment.setText(getString(R.string.gsmook));
-	         fragment.setImage(4);
+	    	 fragment.setText(getString(R.string.reportString).replace("N", Integer.toString(n)));
+	    	if ( n >= 10 && n <= 20 )
+	    		fragment.setImage(2);
+	    	if ( n < 10 )
+		    	fragment.setImage(1);
+		    if ( n > 20 )
+		    	fragment.setImage(3);
 	      } else {
 	         Intent intent = new Intent(getActivity().getApplicationContext(),BodyActivity.class);
-	         intent.putExtra("value",getString(R.string.gsmook));
-	         intent.putExtra("image", "4");
-	         startActivity(intent);
+	         intent.putExtra("value",getString(R.string.reportString).replace("N", Integer.toString(n))); 
+	         if ( n >= 10 && n <= 20 )
+	        	 intent.putExtra("image", "2");
+	         if ( n < 10 )
+	        	 intent.putExtra("image", "1");
+		     if ( n > 20 )
+		    	 intent.putExtra("image", "3");
+		     startActivity(intent);
 	      }
 	      
 	   }
-	        
+	   
+	   private void justSmoked() {
+		      
+		      BodyFragment fragment = (BodyFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.bodyFragment);
+		      
+		      n += 1;
+		      man.savePreferencesData(n);
+		      
+		      if ((fragment!=null)&&fragment.isInLayout()) {
+		         fragment.setText(getString(R.string.gsmook));
+		         fragment.setImage(4);
+		      } else {
+		         Intent intent = new Intent(getActivity().getApplicationContext(),BodyActivity.class);
+		         intent.putExtra("value",getString(R.string.gsmook));
+		         intent.putExtra("image", "4");
+		         startActivity(intent);
+		      }
+		      
+		   }
 	  public void setZero() {
 		  n = 0;
 		  man.savePreferencesData(n);
