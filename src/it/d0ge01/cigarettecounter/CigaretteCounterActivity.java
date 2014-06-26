@@ -25,7 +25,7 @@ public class CigaretteCounterActivity extends FragmentActivity implements MenuFr
 	public void onMenufrag(String s) {
 	    
 		// get body fragment (native method is getFragmentManager)
-	    BodyFragment fragment = (BodyFragment) getSupportFragmentManager().findFragmentById(R.id.bodyFragment);
+	    BodyFragment fragment = (BodyFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentbody);
 	    
 	    // if fragment is not null and in layout, set text, else launch BodyActivity
 	    if ((fragment!=null)&&fragment.isInLayout()) {
@@ -83,7 +83,7 @@ public class CigaretteCounterActivity extends FragmentActivity implements MenuFr
 	
 	private void createDialogReset() {
         Dialogo ob = new Dialogo();
-        MenuFragment fragment = (MenuFragment) getSupportFragmentManager().findFragmentById(R.id.menuFragment);
+        MenuFragment fragment = (MenuFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentmenu);
         ob.setOb(fragment);
         ob.show(getFragmentManager(), UI_MODE_SERVICE);
 }

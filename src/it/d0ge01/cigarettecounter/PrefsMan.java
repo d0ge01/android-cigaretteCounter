@@ -16,7 +16,6 @@ public class PrefsMan {
     private final static String INT_DATA_KEY = "dayData";
     
     private Calendar calendar;
-    private Resources res;
     private static int day;
     private static int year;
     
@@ -27,7 +26,7 @@ public class PrefsMan {
 	public PrefsMan(Activity act) {
 		this.act = act;
 		
-		res = this.act.getResources();
+		this.act.getResources();
         
         calendar = Calendar.getInstance();
         day = calendar.get(Calendar.DAY_OF_YEAR);
@@ -46,8 +45,11 @@ public class PrefsMan {
 	public void updatePreferencesData(){
         SharedPreferences prefs = this.act.getSharedPreferences("PREF_NAME", Context.MODE_MULTI_PROCESS);
         String textData = prefs.getString(TEXT_DATA_KEY, "0");
-        
-        n = (int) Integer.parseInt(textData);
+        try {
+        	n = (int) Integer.parseInt(textData);
+        } catch ( Exception e ) {
+        	n = 0;
+        }
 	}
 	
 	public void savePreferencesData(int n) {
@@ -85,7 +87,7 @@ public class PrefsMan {
 	
 	public List<String> getAllDay() {
 		
-		return null;
+		return new LinkedList();
 	}
 	
 	public int getN() {
