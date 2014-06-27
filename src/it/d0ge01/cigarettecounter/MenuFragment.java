@@ -105,6 +105,7 @@ public class MenuFragment extends Fragment {
 	      BodyFragment fragment = (BodyFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.bodyFragment);
 	      
 	      man.updatePreferencesData();
+	      n = man.getN();
 	      
 	      if ((fragment!=null)&&fragment.isInLayout()) {
 	    	 fragment.setText(getString(R.string.reportString).replace("N", Integer.toString(n)));
@@ -131,7 +132,7 @@ public class MenuFragment extends Fragment {
 	   private void justSmoked() {
 		      
 		      BodyFragment fragment = (BodyFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.bodyFragment);
-		      
+		      n = man.getN();
 		      n += 1;
 		      man.savePreferencesData(n);
 		      
@@ -145,9 +146,5 @@ public class MenuFragment extends Fragment {
 		         startActivity(intent);
 		      }
 		      
-		   }
-	  public void setZero() {
-		  n = 0;
-		  man.savePreferencesData(n);
 	  }
-	}
+}
