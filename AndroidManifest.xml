@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="it.d0ge01.cigarettecounter"
     android:versionCode="1"
-    android:versionName="0.8b" >
+    android:versionName="0.8" >
 
     <uses-sdk
         android:minSdkVersion="16"
