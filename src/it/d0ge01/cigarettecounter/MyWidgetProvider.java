@@ -15,8 +15,10 @@ import android.widget.RemoteViews;
 import android.widget.Toast;
 
 public class MyWidgetProvider extends AppWidgetProvider {
-	private static final String SYNC_CLICKED = "addCigarette";
+	// private static final String SYNC_CLICKED = "addCigarette";
 	
+	
+	// DISABLED FOR NOW; INSTEAD STARTING MAIN ACTIVITY
 	private final static String DAY_KEY = "textData";
     private final static String N_KEY = "dayData";
     private final static String N_ELEMENT = "vectorData";
@@ -29,12 +31,14 @@ public class MyWidgetProvider extends AppWidgetProvider {
         RemoteViews remoteViews;
         ComponentName watchWidget;
         
-        prefs = context.getSharedPreferences("PREFS_NAME", 0);
+        Intent configIntent = new Intent(context, CigaretteCounterActivity.class);
+        PendingIntent configPendingIntent = PendingIntent.getActivity(context, 0, configIntent, 0);
+
         
         remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget_layout);
         watchWidget = new ComponentName(context, MyWidgetProvider.class);
         
-        remoteViews.setOnClickPendingIntent(R.id.buttonPlus, getPendingSelfIntent(context, SYNC_CLICKED));
+        remoteViews.setOnClickPendingIntent(R.id.buttonPlus, configPendingIntent);
         appWidgetManager.updateAppWidget(watchWidget, remoteViews);
     }
  
@@ -49,35 +53,5 @@ public class MyWidgetProvider extends AppWidgetProvider {
         // TODO Auto-generated method stub
         super.onReceive(context, intent);
  
-        if (SYNC_CLICKED.equals(intent.getAction())) {
- 
-            AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
- 
-            RemoteViews remoteViews;
-            ComponentName watchWidget;
- 
-            
-            int n, nVector;
-            
-            remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget_layout);
-            watchWidget = new ComponentName(context, MyWidgetProvider.class);
-            Log.e("ProvaClick","Received");
-            
-            int nElementi = prefs.getInt(N_ELEMENT, 0);
-            nVector = nElementi;
-            try {
-            	n = prefs.getInt(N_KEY + nElementi, 0);
-            } catch ( Exception e ) {
-            	n = 0;
-            }
-    		n += 1;
-            SharedPreferences.Editor editor = prefs.edit();
-    	    editor.putInt(N_KEY + nVector, n);
-    	    editor.commit();
-
-            Toast.makeText(context.getApplicationContext(), "Hai aggiunto una sigaretta", Toast.LENGTH_LONG).show();;
-            appWidgetManager.updateAppWidget(watchWidget, remoteViews);
- 
-        }
     }
 }
