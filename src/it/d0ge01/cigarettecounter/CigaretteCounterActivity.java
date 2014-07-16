@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 public class CigaretteCounterActivity extends FragmentActivity implements MenuFragment.OnMenufragListener {
 	
@@ -73,6 +74,9 @@ public class CigaretteCounterActivity extends FragmentActivity implements MenuFr
             case R.id.action_settings:
                     createDialogReset();
                     return true;
+            case R.id.credits_settings:
+            		Toast.makeText(getApplicationContext(), "App interamente scritta da Salvatore Criscione", Toast.LENGTH_LONG).show();
+            		return true;
             default:
                     return super.onOptionsItemSelected(item);
             }
