@@ -80,7 +80,7 @@ public class CigaretteCounterActivity extends FragmentActivity implements MenuFr
 	
 	private void createDialogReset() {
         Dialogo ob = new Dialogo();
-        MenuFragment fragment = (MenuFragment) getSupportFragmentManager().findFragmentById(R.id.menuFragment);
+        //MenuFragment fragment = (MenuFragment) getSupportFragmentManager().findFragmentById(R.id.menuFragment);
         ob.show(getFragmentManager(), UI_MODE_SERVICE);
 }
 }

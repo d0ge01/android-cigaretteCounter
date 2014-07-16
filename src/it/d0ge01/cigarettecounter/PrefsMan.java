@@ -5,7 +5,6 @@ import java.util.Calendar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 
 public class PrefsMan {
 	Activity act;

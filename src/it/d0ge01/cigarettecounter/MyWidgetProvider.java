@@ -1,6 +1,5 @@
 package it.d0ge01.cigarettecounter;
 
-import java.util.Calendar;
 
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
@@ -8,23 +7,17 @@ import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.net.Uri;
-import android.util.Log;
 import android.widget.RemoteViews;
-import android.widget.Toast;
 
 public class MyWidgetProvider extends AppWidgetProvider {
 	// private static final String SYNC_CLICKED = "addCigarette";
 	
 	
-	// DISABLED FOR NOW; INSTEAD STARTING MAIN ACTIVITY
+	/* DISABLED FOR NOW; INSTEAD STARTING MAIN ACTIVITY
 	private final static String DAY_KEY = "textData";
     private final static String N_KEY = "dayData";
     private final static String N_ELEMENT = "vectorData";
-
-	
-	private SharedPreferences prefs;
+	 */
 	
 	@Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {

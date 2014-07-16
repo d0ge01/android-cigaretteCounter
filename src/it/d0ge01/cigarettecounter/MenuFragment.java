@@ -15,10 +15,6 @@ public class MenuFragment extends Fragment {
 	   Button bt1, bt2, bt3;
 	   private int n = 0;
     
-	   // activity listener
-	   private OnMenufragListener menufragListener;
-
-	   
 	   // interface for save data
 	   private PrefsMan man;
 	   
@@ -34,7 +30,6 @@ public class MenuFragment extends Fragment {
 	   public void onAttach(Activity activity) {
 	      super.onAttach(activity);
 	      try {
-	         menufragListener = (OnMenufragListener) activity;
 	      } catch (ClassCastException e) {
 	         throw new ClassCastException(activity.toString()+" must implement OnMenufragListener");
 	      }
