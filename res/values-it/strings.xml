@@ -10,4 +10,5 @@
 	<string name="gsmook">Buona fumata</string>
 	<string name="reportString">Oggi hai fumato N sigarette</string>
 	<string name="reportButton">Resoconto</string>
+	<string name="credits">Crediti</string>
 </resources>

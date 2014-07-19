@@ -11,4 +11,5 @@
 	<string name="gsmook">Good Smooking</string>
 	<string name="reportString">You have smooked N cigarettes</string>
 	<string name="reportButton">All Reports</string>
+	<string name="credits">Credits</string>
 </resources>

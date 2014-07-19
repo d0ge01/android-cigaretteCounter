@@ -1,6 +1,10 @@
 package it.d0ge01.cigarettecounter;
 
 
+import android.graphics.Color;
+import android.graphics.ColorFilter;
+import android.graphics.LightingColorFilter;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -40,15 +44,24 @@ public class BodyFragment extends Fragment{
 		   
 		   ImageView view = (ImageView) getView().findViewById(R.id.imageReport);
 		   
+		   Drawable life = getResources().getDrawable(R.drawable.life);
+		   final ColorFilter filter;
+		   
 		   switch(i) {
 		   case 1:
-			   view.setImageResource(R.drawable.life_good);
+			   filter = new LightingColorFilter(Color.GREEN, 0);
+			   life.mutate().setColorFilter(filter);
+			   view.setImageDrawable(life);
 			   break;
 		   case 2:
-			   view.setImageResource(R.drawable.life_med);
+			   filter = new LightingColorFilter(Color.YELLOW, 0);
+			   life.mutate().setColorFilter(filter);
+			   view.setImageDrawable(life);
 			   break;
 		   case 3:
-			   view.setImageResource(R.drawable.life_bad);
+			   filter = new LightingColorFilter(Color.RED, 0);
+			   life.mutate().setColorFilter(filter);
+			   view.setImageDrawable(life);
 			   break;
 		   default:
 				view.setImageResource(R.drawable.smok);;
